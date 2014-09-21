@@ -1,0 +1,17 @@
+{
+  "name": "static-engine-collection",
+  "version": "1.0.0",
+  "description": "Middleware for static-engine.",
+  "main": "index.js",
+  "repository": "erickmerchant/static-engine-collection",
+  "author": "Erick Merchant <erickmerchant@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/erickmerchant/static-engine-collection/issues"
+  },
+  "homepage": "https://github.com/erickmerchant/static-engine-collection",
+  "dependencies": {
+    "lodash": "^2.4.1",
+    "q": "^1.0.1"
+  }
+}
