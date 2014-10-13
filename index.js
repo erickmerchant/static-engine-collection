@@ -1,4 +1,3 @@
-var _ = require('lodash');
 var Q = require('q');
 
 module.exports = function (name, plugin) {
@@ -7,7 +6,7 @@ module.exports = function (name, plugin) {
 
         var promises = [];
 
-        _.forEach(pages, function (page) {
+        pages.forEach(function (page) {
 
             var current = page[name] ? [page[name]] : [];
 
