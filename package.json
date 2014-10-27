@@ -1,11 +1,11 @@
 {
   "name": "static-engine-collection",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Middleware for static-engine. Allows you to operate on a property of each element in the collection, using middleware on it.",
   "main": "index.js",
   "repository": "erickmerchant/static-engine-collection",
   "keywords": [
-      "static-engine"
+    "static-engine"
   ],
   "author": "Erick Merchant <erickmerchant@gmail.com>",
   "license": "MIT",
