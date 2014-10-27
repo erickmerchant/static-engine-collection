@@ -8,8 +8,8 @@ module.exports = function (name, plugin) {
 
         pages.forEach(function (page) {
 
-            var current = page[name] ? [page[name]] : [];
-
+            var current = page[name] && Array.isArray(page[name]) ? page[name] : [];
+            
             var deferred = Q.defer();
 
             plugin(current, function (collection) {
