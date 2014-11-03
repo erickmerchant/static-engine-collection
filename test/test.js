@@ -21,29 +21,23 @@ describe('plugin', function(){
         });
     });
 
-    describe('when the property already exists and is an array', function(){
+    it('should append to existing property that is an array', function(done){
 
-        it('should work with it', function(done){
+        plugin([{test: ['b']}], function(pages){
 
-            plugin([{}, {test: ['b']}, {}], function(pages){
+            assert.deepEqual(pages, [ { test: ['b', 'a'] } ]);
 
-                assert.deepEqual(pages, [ { test: ['a'] }, { test: ['b', 'a'] }, { test: ['a'] } ]);
-
-                done();
-            });
+            done();
         });
     });
 
-    describe('when the property already exists but is not an array', function(){
+    it('should replace existing property that is not an array', function(done){
 
-        it('should replace it', function(done){
+        plugin([{test: 'a'}], function(pages){
 
-            plugin([{}, {test: 'a'}, {}], function(pages){
+            assert.deepEqual(pages, [ { test: ['a'] } ]);
 
-                assert.deepEqual(pages, [ { test: ['a'] }, { test: ['a'] }, { test: ['a'] } ]);
-
-                done();
-            });
+            done();
         });
     });
 });
