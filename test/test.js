@@ -1,5 +1,4 @@
 var assert = require('chai').assert;
-var Q = require('q');
 var collection = require('../index.js');
 
 describe('plugin', function(){

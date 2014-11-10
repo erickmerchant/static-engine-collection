@@ -1,28 +1,25 @@
-var Q = require('q');
+var Promise = require('es6-promise').Promise;
 
 module.exports = function (name, plugin) {
 
     return function (pages, next) {
 
-        var promises = [];
+        var promises = pages.map(function (page) {
 
-        pages.forEach(function (page) {
+            return new Promise(function(resolve, reject){
 
-            var current = page[name] && Array.isArray(page[name]) ? page[name] : [];
-            
-            var deferred = Q.defer();
+                var current = page[name] && Array.isArray(page[name]) ? page[name] : [];
 
-            plugin(current, function (collection) {
+                plugin(current, function (collection) {
 
-                page[name] = collection;
+                    page[name] = collection;
 
-                deferred.resolve(page);
+                    resolve(page);
+                });
             });
-
-            promises.push(deferred.promise);
         });
 
-        Q.all(promises).then(function(results){
+        Promise.all(promises).then(function(results){
 
             var pages = [];
 
