@@ -1,7 +1,7 @@
 {
   "name": "static-engine-collection",
   "version": "2.1.1",
-  "description": "Plugin for static-engine. Allows you to operate on a property of each element in the collection, using middleware on it.",
+  "description": "Plugin for static-engine. Allows you to operate on a property of each element in the collection, using plugins on it.",
   "main": "index.js",
   "repository": "erickmerchant/static-engine-collection",
   "keywords": [
