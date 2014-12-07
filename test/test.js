@@ -1,18 +1,19 @@
 var assert = require('chai').assert;
 var collection = require('../index.js');
+var Promise = require('es6-promise').Promise;
 
 describe('plugin', function(){
 
-    var plugin = collection('test', function(pages, next){
+    var plugin = collection('test', [function(pages){
 
         pages.push('a');
 
-        next(pages);
-    });
+        return Promise.resolve(pages);
+    }]);
 
     it('should act on all desired properties as if they are pages', function(done){
 
-        plugin([{}, {}, {}], function(pages){
+        plugin([{}, {}, {}]).then(function(pages){
 
             assert.deepEqual(pages, [ { test: ['a'] }, { test: ['a'] }, { test: ['a'] } ]);
 
@@ -22,7 +23,7 @@ describe('plugin', function(){
 
     it('should append to existing property that is an array', function(done){
 
-        plugin([{test: ['b']}], function(pages){
+        plugin([{test: ['b']}]).then(function(pages){
 
             assert.deepEqual(pages, [ { test: ['b', 'a'] } ]);
 
@@ -32,7 +33,7 @@ describe('plugin', function(){
 
     it('should replace existing property that is not an array', function(done){
 
-        plugin([{test: 'a'}], function(pages){
+        plugin([{test: 'a'}]).then(function(pages){
 
             assert.deepEqual(pages, [ { test: ['a'] } ]);
 

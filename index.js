@@ -1,31 +1,39 @@
 var Promise = require('es6-promise').Promise;
+var engine = require('static-engine');
 
-module.exports = function (name, plugin) {
+module.exports = function (name, plugins) {
 
-    return function (pages, next) {
+    return function (pages) {
 
         var promises = pages.map(function (page) {
 
             return new Promise(function(resolve, reject){
 
-                var current = page[name] && Array.isArray(page[name]) ? page[name] : [];
+                var current_pages = page[name] && Array.isArray(page[name]) ? page[name] : [];
 
-                plugin(current, function (collection) {
+                var _plugins = Array.prototype.slice.apply(plugins);
 
-                    page[name] = collection;
+                _plugins.unshift(function(){
+
+                    return Promise.resolve(current_pages);
+                });
+
+                engine([_plugins]).then(function (pages) {
+
+                    page[name] = pages[0];
 
                     resolve(page);
                 });
             });
         });
 
-        Promise.all(promises).then(function(results){
+        return Promise.all(promises).then(function(results){
 
             var pages = [];
 
             Array.prototype.push.apply(pages, results);
 
-            next(pages);
+            return Promise.resolve(pages);
         });
     };
 };
