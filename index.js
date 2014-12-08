@@ -11,14 +11,14 @@ module.exports = function (name, plugins) {
 
                 var current_pages = page[name] && Array.isArray(page[name]) ? page[name] : [];
 
-                var _plugins = Array.prototype.slice.apply(plugins);
+                var formula = [ plugins.slice(0) ];
 
-                _plugins.unshift(function(){
+                formula[0].unshift(function(){
 
                     return Promise.resolve(current_pages);
                 });
 
-                engine([_plugins]).then(function (pages) {
+                engine(formula).then(function (pages) {
 
                     page[name] = pages[0];
 
