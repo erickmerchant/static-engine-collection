@@ -1,6 +1,6 @@
 var Promise = require('es6-promise').Promise;
 var engine = require('static-engine');
-var engine = require('static-engine-series');
+var series = require('static-engine-series');
 
 module.exports = function (name, plugins) {
 
