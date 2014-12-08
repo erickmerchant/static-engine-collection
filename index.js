@@ -1,7 +1,10 @@
 var Promise = require('es6-promise').Promise;
 var engine = require('static-engine');
+var engine = require('static-engine-series');
 
 module.exports = function (name, plugins) {
+
+    plugins = series(plugins);
 
     return function (pages) {
 
@@ -11,16 +14,9 @@ module.exports = function (name, plugins) {
 
                 var current_pages = page[name] && Array.isArray(page[name]) ? page[name] : [];
 
-                var formula = [ plugins.slice(0) ];
+                plugins(current_pages).then(function (pages) {
 
-                formula[0].unshift(function(){
-
-                    return Promise.resolve(current_pages);
-                });
-
-                engine(formula).then(function (pages) {
-
-                    page[name] = pages[0];
+                    page[name] = pages;
 
                     resolve(page);
                 });
