@@ -1,10 +1,10 @@
 var Promise = require('es6-promise').Promise;
 var engine = require('static-engine');
-var series = require('static-engine-series');
+var compose = require('static-engine/compose');
 
 module.exports = function (name, plugins) {
 
-    plugins = series(plugins);
+    var composed = compose(plugins);
 
     return function (pages) {
 
@@ -14,7 +14,7 @@ module.exports = function (name, plugins) {
 
                 var current_pages = page[name] && Array.isArray(page[name]) ? page[name] : [];
 
-                plugins(current_pages).then(function (pages) {
+                composed(current_pages).then(function (pages) {
 
                     page[name] = pages;
 
