@@ -1,6 +1,6 @@
 var Promise = require('es6-promise').Promise;
 var engine = require('static-engine');
-var compose = require('static-engine/compose');
+var compose = require('static-compose');
 
 module.exports = function (name, plugins) {
 
