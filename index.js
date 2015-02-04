@@ -23,7 +23,8 @@ module.exports = function (name, plugins) {
                     page[name] = pages;
 
                     resolve(page);
-                });
+                })
+                .catch(reject);
             });
         });
 
