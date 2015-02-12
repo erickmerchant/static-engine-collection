@@ -1,6 +1,5 @@
 var assert = require('chai').assert;
 var collection = require('../index.js');
-var Promise = require('es6-promise').Promise;
 
 describe('plugin', function(){
 
