@@ -17,7 +17,8 @@ describe('plugin', function(){
             assert.deepEqual(pages, [ { test: ['a'] }, { test: ['a'] }, { test: ['a'] } ]);
 
             done();
-        });
+        })
+        .catch(done);
     });
 
     it('should append to existing property that is an array', function(done){
@@ -27,7 +28,8 @@ describe('plugin', function(){
             assert.deepEqual(pages, [ { test: ['b', 'a'] } ]);
 
             done();
-        });
+        })
+        .catch(done);
     });
 
     it('should replace existing property that is not an array', function(done){
@@ -37,6 +39,7 @@ describe('plugin', function(){
             assert.deepEqual(pages, [ { test: ['a'] } ]);
 
             done();
-        });
+        })
+        .catch(done);
     });
 });
