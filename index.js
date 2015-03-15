@@ -1,4 +1,4 @@
-var compose = require('static-compose');
+var engine = require('static-engine');
 
 module.exports = function (name, plugins) {
 
@@ -7,33 +7,33 @@ module.exports = function (name, plugins) {
         plugins = [].slice.call(arguments, 1);
     }
 
-    var composed = compose(plugins);
-
     return function (pages) {
 
-        var promises = pages.map(function (page) {
+        return Promise.all(
 
-            return new Promise(function(resolve, reject){
+            pages.map(function (page) {
 
-                var current_pages = page[name] && Array.isArray(page[name]) ? page[name] : [];
+                return new Promise(function(resolve, reject){
 
-                composed(current_pages).then(function (pages) {
+                    var plugins_plus = plugins.slice(0);
 
-                    page[name] = pages;
+                    if(page[name] && Array.isArray(page[name])) {
 
-                    resolve(page);
-                })
-                .catch(reject);
-            });
-        });
+                        plugins_plus.unshift(function(pages, done) {
 
-        return Promise.all(promises).then(function(results){
+                            done(null, page[name]);
+                        });
+                    }
 
-            var pages = [];
+                    engine(plugins_plus).then(function (pages) {
 
-            Array.prototype.push.apply(pages, results);
+                        page[name] = pages[0];
 
-            return Promise.resolve(pages);
-        });
+                        resolve(page);
+                    })
+                    .catch(reject);
+                });
+            })
+        );
     };
 };
