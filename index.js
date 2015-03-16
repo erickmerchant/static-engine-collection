@@ -15,17 +15,17 @@ module.exports = function (name, plugins) {
 
                 return new Promise(function(resolve, reject){
 
-                    var plugins_plus = plugins.slice(0);
+                    var pluginsPlus = plugins.slice(0);
 
                     if(page[name] && Array.isArray(page[name])) {
 
-                        plugins_plus.unshift(function(pages, done) {
+                        pluginsPlus.unshift(function(pages, done) {
 
                             done(null, page[name]);
                         });
                     }
 
-                    engine(plugins_plus).then(function (pages) {
+                    engine(pluginsPlus).then(function (pages) {
 
                         page[name] = pages[0];
 
