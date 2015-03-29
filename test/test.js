@@ -12,7 +12,11 @@ describe('plugin', function(){
 
     it('should act on all desired properties as if they are pages', function(done){
 
-        plugin([{}, {}, {}]).then(function(pages){
+        var promise = plugin([{}, {}, {}]);
+
+        assert.ok(promise instanceof Promise);
+
+        promise.then(function(pages){
 
             assert.deepEqual(pages, [ { test: ['a'] }, { test: ['a'] }, { test: ['a'] } ]);
 
@@ -23,7 +27,11 @@ describe('plugin', function(){
 
     it('should append to existing property that is an array', function(done){
 
-        plugin([{test: ['b']}]).then(function(pages){
+        var promise = plugin([{test: ['b']}]);
+
+        assert.ok(promise instanceof Promise);
+
+        promise.then(function(pages){
 
             assert.deepEqual(pages, [ { test: ['b', 'a'] } ]);
 
@@ -34,7 +42,11 @@ describe('plugin', function(){
 
     it('should replace existing property that is not an array', function(done){
 
-        plugin([{test: 'a'}]).then(function(pages){
+        var promise = plugin([{test: 'a'}]);
+
+        assert.ok(promise instanceof Promise);
+
+        promise.then(function(pages){
 
             assert.deepEqual(pages, [ { test: ['a'] } ]);
 
