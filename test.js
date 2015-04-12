@@ -1,17 +1,17 @@
 var assert = require('assert')
-var collection = require('../index.js')
+var plugin = require('./index.js')
 var describe = require('mocha').describe
 var it = require('mocha').it
 
 describe('plugin', function () {
-  var plugin = collection('test', [function (pages) {
+  var collection = plugin('test', [function (pages) {
     pages.push('a')
 
     return Promise.resolve(pages)
   }])
 
   it('should act on all desired properties as if they are pages', function (done) {
-    var promise = plugin([{}, {}, {}])
+    var promise = collection([{}, {}, {}])
 
     assert.ok(promise instanceof Promise)
 
@@ -24,7 +24,7 @@ describe('plugin', function () {
   })
 
   it('should append to existing property that is an array', function (done) {
-    var promise = plugin([{test: ['b']}])
+    var promise = collection([{test: ['b']}])
 
     assert.ok(promise instanceof Promise)
 
@@ -37,7 +37,7 @@ describe('plugin', function () {
   })
 
   it('should replace existing property that is not an array', function (done) {
-    var promise = plugin([{test: 'a'}])
+    var promise = collection([{test: 'a'}])
 
     assert.ok(promise instanceof Promise)
 
