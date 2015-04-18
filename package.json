@@ -17,6 +17,7 @@
     "static-engine": "^10.0.0"
   },
   "devDependencies": {
+    "istanbul": "^0.3.13",
     "mocha": "^2.0.0",
     "standard": "^3.5.0"
   },
@@ -24,6 +25,7 @@
     "node": ">=1.1.0"
   },
   "scripts": {
-    "test": "standard && mocha"
+    "test": "standard && mocha",
+    "cover": "istanbul cover node_modules/.bin/_mocha"
   }
 }
