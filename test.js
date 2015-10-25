@@ -4,11 +4,11 @@ var describe = require('mocha').describe
 var it = require('mocha').it
 
 describe('plugin', function () {
-  var collection = plugin('test', [function (pages) {
+  var collection = plugin('test', [ function (pages) {
     pages.push('a')
 
     return Promise.resolve(pages)
-  }])
+  } ])
 
   it('should act on all desired properties as if they are pages', function (done) {
     var promise = collection([{}, {}, {}])
